@@ -1,0 +1,33 @@
+body{
+    background: rgb(64,76,126);
+    background: linear-gradient(90deg, rgba(64,76,126,1) 12%, rgba(9,121,105,1) 35%, rgba(9,119,121,1) 52%, rgba(124,180,191,1) 87%);
+  }
+  #todoApp{
+    border: 1px solid #a8a8a8;
+    border-radius: 10px;
+    padding: 45px;
+    margin-top: 5px;
+    margin-left: 35%;
+    display: inline-block;
+    width: 400px;
+    min-height: 280px;
+    background-color: #e5ffa9;
+    height: auto;
+  }
+  #addButton{
+    border: 1px solid #a2a2a2;
+    border-radius: 5px;
+    padding: 9px 50px;
+    cursor: pointer;
+  }
+  #todo{
+    border-radius: 5px;
+    border-color: #b3b2c4;
+    height: 27px;
+    width: 260px;
+   }
+   #title{
+    text-align: center;
+    margin-top:10px;
+    color:#fff;
+   }

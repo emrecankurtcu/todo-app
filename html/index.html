@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <style>
+      body{
+        background: rgb(64,97,126);
+        background: linear-gradient(0deg, rgba(64,97,126,1) 12%, rgba(64,97,126,1) 35%, rgba(64,97,126,1) 54%, rgba(64,97,126,1) 89%);
+        text-align: center;
+      }
+      #todoApp{
+        border: 1px solid #a8a8a8;
+        border-radius: 10px;
+        padding: 45px;
+        margin-top: 5px;
+        display: inline-block;
+        width: 400px;
+        min-height: 280px;
+        background-color: #e5ffa9;
+        height: auto;
+      }
+      #addButton{
+        border: 1px solid #a2a2a2;
+        border-radius: 5px;
+        padding: 9px 50px;
+        cursor: pointer;
+        color:#fff;
+        font-weight: 700;
+        background-color: #65dd65;
+      }
+      #addButton:hover{
+        border: 1px solid #65dd65;
+        color:#65dd65;
+        background-color: #fff;
+        transition: 0.3s;
+      }
+      #todo{
+        border-radius: 5px;
+        border-color: #b3b2c4;
+        height: 27px;
+        width: 260px;
+      }
+      #title{
+        text-align: center;
+        margin-top:10px;
+        color:#fff;
+      }
+      #list{
+        text-align: left;
+      }
+    </style>
+</head>
+<body>
+<div id="title"><h1 style="font-family: cursive;">To Do List App</h1></div>
+
+
+<div id="todoApp">
+    <input type="text" id="todo" v-model="currentToDoItem">
+    <button type="button" id="addButton" v-on:click="add">Add</button>
+    <ul id="list">
+      <li class="item" v-for="todo in todos">
+          {{ todo.Text }}
+      </li>
+   </ul>
+</div>
+  
+</body>
+</html>
+
+<script>
+
+    new Vue({
+      el:"#todoApp",
+      data:()=>{
+        return {
+        todos:[],
+        currentToDoItem:""
+        }
+      },
+      methods: {
+        add : function(event){
+          if(this.currentToDoItem != ""){
+            axios.post('http://localhost:9990/add-todo',{ Text: this.currentToDoItem })
+            .then(response => {
+              this.get()
+              this.currentToDoItem = ""
+              alert(response.data)
+            })
+            .catch(error => {});
+          }
+          else{
+              alert("Fill in all fields.")
+          }
+
+        },
+        get : function(event){
+          axios.post('http://localhost:9990/get-todo')
+          .then(response => this.todos =  response.data)
+          .catch(error => {});
+        }
+      },
+      beforeMount(){
+          this.get()
+      }
+    });
+  
+  
+  </script>
